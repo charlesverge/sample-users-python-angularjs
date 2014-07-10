@@ -29,10 +29,15 @@ API
 All api requests take raw json as the input and require an api key
 
 {server}/siteusers/view - View user
+
 {server}/siteusers/all - List all users
+
 {server}/siteusers/add - Add user
+
 {server}/siteusers/update - Update user
+
 {server}/siteusers/delete - Delete user
+
 {server}/siteusers/authenticate - Authenticate email and password combination
 
 
