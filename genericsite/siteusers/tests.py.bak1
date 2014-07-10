@@ -1,0 +1,21 @@
+import json
+from django.test import TestCase
+from django.core.exceptions import ValidationError
+from siteusers.models import SiteUser
+from django.test.client import Client
+from django.core.serializers.json import DjangoJSONEncoder
+
+
+class SiteUserTest(TestCase):
+    """Tests for siteuser api calls and supporting functions"""
+    uuid = ''
+
+
+    def test_view(self):
+        """Test add of new record"""
+        c = Client()
+        jsondata = str(json.dumps({'key': 'access', 'uuid': self.uuid}
+, cls=DjangoJSONEncoder))
+        print(jsondata)
+        result = c.post('/siteusers/view',content_type='application/json', data=jsondata)
+        print(result.content)

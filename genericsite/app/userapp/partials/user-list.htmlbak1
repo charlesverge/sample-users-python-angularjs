@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <!--Sidebar content-->
+
+            Search:
+            <input ng-model="query">Sort by:
+            <select ng-model="orderProp">
+                <option value="first_name">First Name</option>
+                <option value="last_name">Last Name</option>
+            </select>
+            <h1>Add User</h1>
+
+            <form name="user_add">
+                <span class="title"><b>First Name</b></span>
+                <div class="error" ng-show="user_add.dirty && user_add.first_name.$invalid">
+                    <small class="error">
+        First name is required.
+    </small>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="first_name" ng-model="user.first_name" required>
+                </div>
+                <span class="title"><b>Last Name</b></span>
+                <div class="error" ng-show="user_add.dirty && user_add.first_name.$invalid">
+                    <small class="error">
+        Last name is required.
+    </small>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="last_name" ng-model="user.last_name" required>
+                </div>
+            </form>
+            <span class="title"><b>Email</b></span>
+            <div class="error" ng-show="user_add.dirty && user_add.first_name.$invalid">
+                <small class="error" ng-class="{ 'has-error': user_add.email.$invalid }">
+        Email name is required.
+    </small>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" ng-model="user.email" required>
+            </div>
+            <span class="title"><b>Password</b></span>
+            <div class="error" ng-show="user_add.dirty && user_add.first_name.$invalid">
+                <small class="error">
+        Password is required.
+    </small>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" name="password" ng-model="user.password">
+            </div>
+            <div class="buttons">
+                <!-- button to show form -->
+                <button type="button" class="btn btn-default" ng-click="add(user)">
+                    Save
+                </button>
+            </div>
+            </form>
+            <h1>FizzBuzz</h1>
+
+            <a target="_blank" href="/fizzbuzz/calculate/1">1</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/2">2</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/3">3</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/5">5</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/7">7</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/10">10</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/15">15</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/45">45</a> 
+            <a target="_blank" href="/fizzbuzz/calculate/97">97</a> 
+        </div>
+        <div class="col-md-10">
+            <!--Body content-->
+
+            <div class="users">
+                <div ng-repeat="useredit in users | filter:query | orderBy:orderProp" class="thumbnail user-listing" id="user{{useredit.uuid}}">
+                    <form editable-form name="editableForm" onbeforesave="validateEdit($data)" onaftersave="saveUser(useredit)">
+                        <span class="title"><b>First Name</b></span>  <span editable-text="useredit.first_name" e-required>{{useredit.first_name}}</span>
+                        </p>
+                        <span class="title"><b>Last Name</b></span>  <span editable-text="useredit.last_name" e-required>{{useredit.last_name}}</span>
+                        </p>
+                        <span class="title"><b>Email</b></span>  <span editable-email="useredit.email" e-required>{{useredit.email}}</span>
+                        </p>
+                        <span class="title"><b>Password</b></span>  <span editable-text="useredit.password" editable-text="scopevar" e-name="password" e-type="password">****</span>
+                        </p>
+
+                        <span class="title"><b>UUID</b></span> {{useredit.uuid}}
+                        <br>
+                        <br>
+
+                        <div class="buttons">
+                            <!-- button to show form -->
+                            <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-default" ng-click="delete(useredit.uuid)" ng-show="!editableForm.$visible">
+                                Delete
+                            </button>
+                            <!-- buttons to submit / cancel form -->
+                            <span ng-show="editableForm.$visible">
+        <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">
+          Save
+        </button>
+        <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">
+          Cancel
+        </button>
+      </span>
+                        </div>
+
+                        </li>
+                        </ul>
+
+                </div>
+            </div>
+        </div>
